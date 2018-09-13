@@ -2,8 +2,8 @@ from array import *
 from math import *
 # import numpy as np  
 # import matplotlib.pyplot as plt
-M=500
-N=375
+# M=500
+# N=375
 d=2
 
 def graph(formula, x_range):  
@@ -16,7 +16,10 @@ def graph(formula, x_range):
 
 def readDataSetTraining(fileName):
     f = open(fileName,"r")
-    fl =f.readlines()[0:N]
+    fl =f.readlines()
+    N = int(ceil(0.75*len(fl)))
+    # print(N)
+    fl = fl[0:int(N)]
     dSet = [[0 for x in range(d)] for y in range(N)] # vector which consist of 2 features;
     i=0
     for lines in fl:
@@ -30,8 +33,13 @@ def readDataSetTraining(fileName):
 
 def readDataSetTesting(fileName):
     f = open(fileName,"r")
-    fl =f.readlines()[N:M]
-    dSet = [[0 for x in range(d)] for y in range(N)] # vector which consist of 2 features;
+    fl =f.readlines()
+    N = int(ceil(0.75*len(fl)))
+    M = int(len(fl))
+    print(N, M)
+    fl = fl[int(N):int(M)]
+    # print(len(fl))
+    dSet = [[0 for x in range(d)] for y in range(len(fl))] # vector which consist of 2 features;
     i=0
     for lines in fl:
         lines=lines.split();
@@ -41,6 +49,16 @@ def readDataSetTesting(fileName):
     f.close()
     return dSet
 
+def computeMean(X_class,N):
+    x1=0
+    x2=0
+    for i in range(N):
+        x1=x1+float(X_class[i][0])
+        x2=x2+float(X_class[i][1])
+    #Calculating Mean
+    mean_x_class = [x1/N, x2/N];
+    return mean_x_class
+
 def computeCovariance(dSet,mean):
     cov_mat = [[0 for x in range(d)] for y in range(d)] # covariance matrix of size 2x2;
     for i in range(d):
@@ -48,7 +66,7 @@ def computeCovariance(dSet,mean):
             cov_mat[i][j]=0
             for k in range(len(dSet)):
                 cov_mat[i][j] += (float(dSet[k][i])-float(mean[i]))*(float(dSet[k][j])-float(mean[j]))
-            cov_mat[i][j] /= N-1
+            cov_mat[i][j] /= (len(dSet)-1)
     return cov_mat
 
 def calcW(mean,sigmaInverse):
@@ -71,15 +89,11 @@ def main():
     #########
     #Class 1#
     #########
-    x1=0
-    x2=0
     print ("Reading from file")
-    X_class1=readDataSetTraining("Class1.txt")
-    for i in range(N):
-        x1=x1+float(X_class1[i][0])
-        x2=x2+float(X_class1[i][1])
+    X_class1=readDataSetTraining("class1.txt")
+    # print(len(X_class1))
     #Calculating Mean
-    mean_x_class1 = [x1/N, x2/N];
+    mean_x_class1 = computeMean(X_class1,len(X_class1))
     print(mean_x_class1[0]," --- ", mean_x_class1[1])
     #Calculating Covariance
     cov_mat_class1 = computeCovariance(X_class1,mean_x_class1)
@@ -91,15 +105,11 @@ def main():
     #########
     #Class 2#
     #########
-    x1=0
-    x2=0
     #Reading from file
-    X_class2=readDataSetTraining("Class2.txt")
-    for i in range(N):
-        x1=x1+float(X_class2[i][0])
-        x2=x2+float(X_class2[i][1])
+    X_class2=readDataSetTraining("class2.txt")
+    # print(len(X_class2))
     #Calculating Mean
-    mean_x_class2 = [x1/N, x2/N];
+    mean_x_class2 = computeMean(X_class2,len(X_class2))
     print(mean_x_class2[0]," --- ", mean_x_class2[1])
     #Calculating Covariance
     cov_mat_class2 = computeCovariance(X_class2,mean_x_class2)
@@ -110,15 +120,11 @@ def main():
     #########
     #Class 3#
     #########
-    x1=0
-    x2=0
     #Reading from file
-    X_class3=readDataSetTraining("Class3.txt")
-    for i in range(N):
-        x1=x1+float(X_class3[i][0])
-        x2=x2+float(X_class3[i][1])
+    X_class3=readDataSetTraining("class3.txt")
+    # print(len(X_class3))
     #Calculating Mean
-    mean_x_class3 = [x1/N, x2/N];
+    mean_x_class3 = computeMean(X_class3,len(X_class3))
     print(mean_x_class3[0]," --- ", mean_x_class3[1])
     #Calculating Covariance
     cov_mat_class3 = computeCovariance(X_class3,mean_x_class3)
@@ -156,8 +162,11 @@ def main():
     #Allocating Class to each point
     #For Class 1
     c1_1=c1_2=c1_3=0
-    X1=readDataSetTesting("Class1.txt")
-    for i in range (M-N):
+    X1=readDataSetTesting("class1.txt")
+    print(X1)
+    print(len(X1))
+    # print(N, M)
+    for i in range (len(X1)):
         g1=calcG(w1,w01,X1[i])
         g2=calcG(w2,w02,X1[i])
         g3=calcG(w3,w03,X1[i])
@@ -174,8 +183,10 @@ def main():
     print ("End of Class 1")
     #For Class 2
     c2_1=c2_2=c2_3=0
-    X2=readDataSetTesting("Class2.txt")
-    for i in range (M-N):
+    X2=readDataSetTesting("class2.txt")
+    # print(len(X2))
+    # print(N, M)
+    for i in range (len(X2)):
         g1=calcG(w1,w01,X2[i])
         g2=calcG(w2,w02,X2[i])
         g3=calcG(w3,w03,X2[i])
@@ -192,8 +203,10 @@ def main():
     print ("End of Class 2")
     #For Class 3
     c3_1=c3_2=c3_3=0
-    X3=readDataSetTesting("Class3.txt")
-    for i in range (M-N):
+    X3=readDataSetTesting("class3.txt")
+    # print(len(X3))
+    # print(N, M)
+    for i in range (len(X3)):
         g1=calcG(w1,w01,X3[i])
         g2=calcG(w2,w02,X3[i])
         g3=calcG(w3,w03,X3[i])
