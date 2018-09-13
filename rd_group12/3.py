@@ -2,6 +2,9 @@ from array import *
 from math import *
 import numpy as np  
 import matplotlib.pyplot as plt
+import sys
+from matplotlib import colors as mcolors
+
 
 # M=500
 # N=375
@@ -14,6 +17,23 @@ def graph(formula, x_range):
     # plt.axis([-20, 20, -20, 20])
     plt.setp(lines, color='r', linewidth=2.0)
     # plt.show()
+
+def readDataSetWhole(fileName):
+    f = open(fileName,"r")
+    fl =f.readlines()
+    N = int(ceil(len(fl)))
+    # print(N)
+    fl = fl[0:int(N)]
+    dSet = [[0 for x in range(d)] for y in range(N)] # vector which consist of 2 features;
+    i=0
+    for lines in fl:
+        lines=lines.split();
+        for j in range(d):
+            dSet[i][j] = float(lines[j])
+        i=i+1
+    f.close()
+    return dSet 
+
 
 def readDataSetTraining(fileName):
     f = open(fileName,"r")
@@ -161,6 +181,54 @@ def computePrior(class_no):
     return ans
 
 
+def getRange():
+    X1=readDataSetWhole("class1.txt")
+    X2=readDataSetWhole("class2.txt")
+    X3=readDataSetWhole("class3.txt")
+
+    xmin=ymin=sys.maxsize
+    xmax=ymax=-sys.maxsize
+
+    for i in range(len(X1)):
+        if X1[i][0] > xmax :
+            xmax=X1[i][0]
+        if X1[i][0] < xmin :    
+            xmin=X1[i][0]
+        
+        if X1[i][1] > ymax :
+            ymax=X1[i][1]
+        if X1[i][1] < ymin :    
+            ymin=X1[i][1]
+
+    for i in range(len(X2)):
+        if X2[i][0] > xmax :
+            xmax=X2[i][0]
+        if X2[i][0] < xmin :    
+            xmin=X2[i][0]
+        
+        if X2[i][1] > ymax :
+            ymax=X2[i][1]
+        if X2[i][1] < ymin :    
+            ymin=X2[i][1]
+
+    for i in range(len(X3)):
+        if X3[i][0] > xmax :
+            xmax=X3[i][0]
+        if X3[i][0] < xmin :    
+            xmin=X3[i][0]
+        
+        if X3[i][1] > ymax :
+            ymax=X3[i][1]
+        if X3[i][1] < ymin :    
+            ymin=X3[i][1]
+        
+    dSet = [[0 for x in range(2)] for y in range(2)]
+    dSet[0][0]=xmin
+    dSet[0][1]=xmax
+    dSet[1][0]=ymin
+    dSet[1][1]=ymax
+    return dSet
+
 
 def main():
     #########
@@ -293,7 +361,52 @@ def main():
     print("c3_1 = ", c3_1, "c3_2 = ", c3_2, "c3_3 = ", c3_3)
     print ("End of Class 3")
     
+    X=getRange()
+    xmin=X[0][0]
+    xmax=X[0][1]
+    ymin=X[1][0]
+    ymax=X[1][1]
+
+    print ("xmin = ",xmin)
+    print ("ymin = ",ymin)
+    print ("xmax = ",xmax)
+    print ("ymax = ",ymax)
+    A = [[0 for x in range(2)] for y in range(2)]
+
+    i=xmin
+    while i<xmax :
+        j=ymin
+        while j<ymax:
+            A[0]=i
+            A[1]=j
+            g1=calcG(w2_1,w1_1,w01,A)
+            g2=calcG(w2_2,w1_2,w02,A)
+            g3=calcG(w2_3,w1_3,w03,A)
+            if g1==max(g1,g2,g3):
+                plt.plot(i,j,color='#f6668f',marker='s')
+            elif g2==max(g1,g2,g3):
+                plt.plot(i,j,color='#33d7ff',marker='s')
+            elif g3==max(g1,g2,g3):
+                plt.plot(i,j,color='#75f740',marker='s')
+            j+=25
+        i+=25
+
+    X1=readDataSetTesting("class1.txt")
+    for i in range(len(X1)):
+        plt.plot(X1[i][0],X1[i][1],'ro')
+
+    X2=readDataSetTesting("class2.txt")
+    for i in range(len(X2)):
+        plt.plot(X2[i][0],X2[i][1],'bo')
+
+    X3=readDataSetTesting("class3.txt")
+    for i in range(len(X3)):
+        plt.plot(X3[i][0],X3[i][1],'go')
+
     
+    plt.show()
+
+
     # x = np.linspace(-100, 100, 100)
     # y = np.linspace(-100, 100, 100)
     # X, Y = np.meshgrid(x,y)
