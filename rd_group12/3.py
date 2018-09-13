@@ -87,7 +87,7 @@ def calcW0(mean,cov_matrix_inverse,prior,det):
     t = [((mean[0]*cov_matrix_inverse[0][0])+(mean[1]*cov_matrix_inverse[1][0])), ((mean[0]*cov_matrix_inverse[0][1])+(mean[1]*cov_matrix_inverse[1][1]))]
     w0 = ((t[0]*mean[0])+(t[1]*mean[1]))/(-1*2)
     w0 += log(prior)
-    w0 -= (det/2)
+    w0 -= log(det/2)
     return w0
 
 def calcG(w2,w1,w0,x):
@@ -139,6 +139,27 @@ def inverseMatrix(cov_matrix_b):
         for j in range(d):
             cov_matrix_b[i][j] /= det;
     return cov_matrix_b
+
+def computePrior(class_no):
+    f = open("class1.txt","r")
+    fl =f.readlines()
+    c1 = int(ceil(0.75*len(fl)))
+    f = open("class2.txt","r")
+    fl =f.readlines()
+    c2 = int(ceil(0.75*len(fl)))
+    f = open("class3.txt","r")
+    fl =f.readlines()
+    c3 = int(ceil(0.75*len(fl)))
+    t=c1+c2+c3
+    ans=0.0
+    if class_no==1:
+        ans = (1.0*c1)/(1.0*t)
+    elif class_no==2:
+        ans = (1.0*c2)/(1.0*t)
+    elif class_no==3:
+        ans = (1.0*c3)/(1.0*t)
+    return ans
+
 
 
 def main():
@@ -195,9 +216,11 @@ def main():
     
     #CASE - C (All covaraince matrix are not equal but diagonal)
 
-    prior_class1 = (0.75*500)/(0.75*500 + 0.75*500 + 0.75*500)
-    prior_class2 = prior_class3 = prior_class1
-
+    prior_class1 = computePrior(1)
+    prior_class2 = computePrior(2)
+    prior_class3 = computePrior(3)
+    
+    
     print(prior_class1, " ", prior_class2, " ", prior_class3)
 
     #Calc w2, w1 and w0

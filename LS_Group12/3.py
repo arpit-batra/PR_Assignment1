@@ -93,7 +93,7 @@ def calcW0(mean,cov_matrix_inverse,prior,det):
     t = [((mean[0]*cov_matrix_inverse[0][0])+(mean[1]*cov_matrix_inverse[1][0])), ((mean[0]*cov_matrix_inverse[0][1])+(mean[1]*cov_matrix_inverse[1][1]))]
     w0 = ((t[0]*mean[0])+(t[1]*mean[1]))/(-1*2)
     w0 += log(prior)
-    w0 -= (det/2)
+    w0 -= log(det/2)
     return w0
 
 def calcG(w2,w1,w0,x):
@@ -319,6 +319,7 @@ def main():
     print ("End of Class 3")
     
 
+
     X1=readDataSetTesting("Class1.txt")
     for i in range(M-N):
         plt.plot(X1[i][0],X1[i][1],'ro')
@@ -365,62 +366,6 @@ def main():
     plt.show()   
 
     
-    # x = np.linspace(-100, 100, 100)
-    # y = np.linspace(-100, 100, 100)
-    # X, Y = np.meshgrid(x,y)
-    # F = (w2_12[0][0])*(X**2) + (w2_12[1][1])*(Y**2) + X*Y*(w2_12[0][1]+w2_12[1][0]) + w1_12[0]*X + w1_12[1]*Y + w0_12 
-    # plt.contour(X,Y,F,[0],cmap=plt.get_cmap('autumn'))
-    # F = (w2_13[0][0])*(X**2) + (w2_13[1][1])*(Y**2) + X*Y*(w2_13[0][1]+w2_13[1][0]) + w1_13[0]*X + w1_13[1]*Y + w0_13
-    # plt.contour(X,Y,F,[0],cmap=plt.get_cmap('winter'))
-    # F = (w2_23[0][0])*(X**2) + (w2_23[1][1])*(Y**2) + X*Y*(w2_23[0][1]+w2_23[1][0]) + w1_23[0]*X + w1_23[1]*Y + w0_23
-    # plt.contour(X,Y,F,[0],cmap=plt.get_cmap('spring'))
-    # # plt.show()    
-    # x=[]
-    # y=[]
-    # f = open("Class1.txt","r")
-    # fl =f.readlines()[N:500]
-    # f.close
-    # i=0
-    # for lines in fl:
-    #     lines=lines.split();
-    #     x.append(float(lines[0]))
-    #     y.append(float(lines[1]))
-    #     i+=1
-
-    # # print(x)
-    # plt.plot(x,y,'bs')
-
-    # f = open("Class2.txt","r")
-    # fl =f.readlines()[N:500]
-    # f.close
-    # x=[]
-    # y=[]
-    # i=0
-    # for lines in fl:
-    #     lines=lines.split();
-    #     x.append(float(lines[0]))
-    #     y.append(float(lines[1]))
-    #     i+=1
-
-    # plt.plot(x,y,'ro')
-    # # print(x)
-
-    # f = open("Class3.txt","r")
-    # fl =f.readlines()[N:500]
-    # f.close
-    # x=[]
-    # y=[]
-    # i=0
-    # for lines in fl:
-    #     lines=lines.split();
-    #     x.append(float(lines[0]))
-    #     y.append(float(lines[1]))
-    #     i+=1
-
-    # plt.plot(x,y,'gp')
-
-    # plt.show()
-
 
 if __name__== "__main__":
   main()

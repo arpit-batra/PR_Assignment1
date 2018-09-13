@@ -1,7 +1,7 @@
 from array import *
 from math import *
-# import numpy as np  
-# import matplotlib.pyplot as plt
+import numpy as np  
+import matplotlib.pyplot as plt
 # M=500
 # N=375
 d=2
@@ -9,7 +9,7 @@ d=2
 def graph(formula, x_range):  
     x = np.array(x_range)  
     y = formula(x)
-    lines = plt.plot(y,x)
+    lines = plt.plot(x,y)
     # plt.axis([-20, 20, -20, 20])
     plt.setp(lines, color='r', linewidth=2.0)
     # plt.show()
@@ -84,6 +84,26 @@ def calcG(w,w0,x):
     g=(w[0]*float(x[0]))+(w[1]*float(x[1]))+w0
     return g
 
+def computePrior(class_no):
+    f = open("class1.txt","r")
+    fl =f.readlines()
+    c1 = int(ceil(0.75*len(fl)))
+    f = open("class2.txt","r")
+    fl =f.readlines()
+    c2 = int(ceil(0.75*len(fl)))
+    f = open("class3.txt","r")
+    fl =f.readlines()
+    c3 = int(ceil(0.75*len(fl)))
+    t=c1+c2+c3
+    ans=0.0
+    if class_no==1:
+        ans = (1.0*c1)/(1.0*t)
+    elif class_no==2:
+        ans = (1.0*c2)/(1.0*t)
+    elif class_no==3:
+        ans = (1.0*c3)/(1.0*t)
+    return ans
+
 def main():
     sigma = 0.0
     #########
@@ -132,7 +152,7 @@ def main():
         sigma += cov_mat_class3[i][i]
 
     print("sigma = ", sigma, "\n")
-    sigma /= 6; 
+    sigma /= 6;
     print("sigma = ", sigma, "\n")
 
     
@@ -141,8 +161,10 @@ def main():
 
     cov_matrix_a = [[float(sigma),0],[0,float(sigma)]]
 
-    prior_class1 = (0.75*500)/(0.75*500 + 0.75*500 + 0.75*500)
-    prior_class2 = prior_class3 = prior_class1
+    prior_class1 = computePrior(1)
+    prior_class2 = computePrior(2)
+    prior_class3 = computePrior(3)
+    print(prior_class1, " ", prior_class2, " ", prior_class3)
 
     sigma_inverse = 1 / (cov_matrix_a[0][0]);
 
@@ -163,7 +185,7 @@ def main():
     #For Class 1
     c1_1=c1_2=c1_3=0
     X1=readDataSetTesting("class1.txt")
-    print(X1)
+    # print(X1)
     print(len(X1))
     # print(N, M)
     for i in range (len(X1)):
@@ -221,195 +243,102 @@ def main():
             # print("3")
     print("c3_1 = ", c3_1, "c3_2 = ", c3_2, "c3_3 = ", c3_3)
     print ("End of Class 3")
-    
+
+    w12 = [((mean_x_class1[0]-mean_x_class2[0])*sigma_inverse), ((mean_x_class1[1]-mean_x_class2[1])*sigma_inverse)]
+
+    print(w12)
+
+    w012 = pow((mean_x_class1[0]-mean_x_class2[0]),2) + pow((mean_x_class1[0]-mean_x_class2[0]),2)
+    # print(w012)
+    w012 *= (sigma_inverse);
+    w012 /= -2;
+    # print(w012)
+    w012 += log(prior_class1/prior_class2)
+    print(w012)
+
+    w13 = [((mean_x_class1[0]-mean_x_class3[0])*sigma_inverse), ((mean_x_class1[1]-mean_x_class3[1])*sigma_inverse)]
+
+    # print(w13)
+    w013 = pow((mean_x_class1[0]-mean_x_class3[0]),2) + pow((mean_x_class1[1]-mean_x_class3[1]),2)
+    # # print(w013)
+    w013 *= (sigma_inverse);
+    w013 /= -2;
+    # # print(w013)
+    w013 += log(prior_class1/prior_class3)
+    print(w013) 
 
 
+    w23 = [((mean_x_class2[0]-mean_x_class3[0])*sigma_inverse), ((mean_x_class2[1]-mean_x_class3[1])*sigma_inverse)]
+    print(w23)
+    w023 = pow((mean_x_class2[0]-mean_x_class3[0]),2) + pow((mean_x_class2[1]-mean_x_class3[1]),2)
+    # # print(w023)
+    w023 *= (sigma_inverse);
+    w023 /= -2;
+    # # print(w023)
+    w023 += log(prior_class2/prior_class3)
+    print(w023) 
 
-       
+    def my_formula_23(x):
+        return (w23[0]*x+w023)/(-1*w23[1])
 
-    # # first for g12
+    graph(my_formula_23, range(-500, 2500))
 
-    # # f = open("Class1.txt","r")
-    # # fl =f.readlines()[N:500]
-    # # f.close
-    # # for lines in fl:
-    # #     lines=lines.split();
-    # #     # print(lines[0]," ",lines[1])
-    # #     g12 = (float(lines[0])*w12[0]) + (float(lines[1])*w12[1]) 
-    # #     g12 += w012
-    #     # print("g12 = ", g12);
+    def my_formula_13(x):
+        return (w13[0]*x+w013)/(-1*w13[1])
 
+    graph(my_formula_13, range(-500, 2500))
 
-    # # def my_formula_12(x):
-    # #     return (w12[1]*x+w012)/(-1*w12[0])
+    def my_formula_12(x):
+        return (w12[0]*x+w012)/(-1*w12[1])
 
-    # # graph(my_formula_12, range(-10, 30))
+    graph(my_formula_12, range(-500, 2500))
 
-    # # x=[]
-    # # y=[]
-    # # f = open("Class1.txt","r")
-    # # fl =f.readlines()[N:500]
-    # # f.close
-    # # i=0
-    # # for lines in fl:
-    # #     lines=lines.split();
-    # #     x.append(float(lines[0]))
-    # #     y.append(float(lines[1]))
-    # #     i+=1
+    x=[]
+    y=[]
+    f = open("class1.txt","r")
+    fl =f.readlines()
+    f.close
+    i=0
+    for lines in fl:
+        lines=lines.split();
+        x.append(float(lines[0]))
+        y.append(float(lines[1]))
+        i+=1
 
-    # # # print(x)
-    # # plt.plot(x,y,'bs')
+    # print(x)
+    plt.plot(x,y,'gp')
 
-    # # f = open("Class2.txt","r")
-    # # fl =f.readlines()[N:500]
-    # # f.close
-    # # x=[]
-    # # y=[]
-    # # i=0
-    # # for lines in fl:
-    # #     lines=lines.split();
-    # #     x.append(float(lines[0]))
-    # #     y.append(float(lines[1]))
-    # #     i+=1
+    x=[]
+    y=[]
+    f = open("class2.txt","r")
+    fl =f.readlines()
+    f.close
+    i=0
+    for lines in fl:
+        lines=lines.split();
+        x.append(float(lines[0]))
+        y.append(float(lines[1]))
+        i+=1
 
-    # # plt.plot(x,y,'ro')
-    # # # print(x)
+    # print(x)
+    plt.plot(x,y,'bs')
 
-    # # plt.show()
-    
-    # # first for g13
-    
-    # # print((mean_x_class1[0]),"  ", (mean_x_class3[0]), "\n")
-    # w13 = [((mean_x_class1[0]-mean_x_class3[0])*sigma_inverse), ((mean_x_class1[1]-mean_x_class3[1])*sigma_inverse)]
+    f = open("class3.txt","r")
+    fl =f.readlines()
+    f.close
+    x=[]
+    y=[]
+    i=0
+    for lines in fl:
+        lines=lines.split();
+        x.append(float(lines[0]))
+        y.append(float(lines[1]))
+        i+=1
 
-    # # print(w13)
-    # w013 = pow((mean_x_class1[0]-mean_x_class3[0]),2) + pow((mean_x_class1[1]-mean_x_class3[1]),2)
-    # # # print(w013)
-    # w013 *= (sigma_inverse);
-    # w013 /= -2;
-    # # # print(w013)
-    # w013 += log(prior_class1/prior_class3)
-    # print(w013) 
-
-
-    # # #for g13
-
-    # # f = open("Class3.txt","r")
-    # # fl =f.readlines()[N:500]
-    # # f.close
-    
-    # # for lines in fl:
-    # #     lines=lines.split();
-    # #     # print(lines[0]," ",lines[1])
-    # #     g13 = (float(lines[0])*w13[0]) + (float(lines[1])*w13[1]) 
-    # #     g13 += w013
-
-    # #     # print("g13 = ", g13);
-
-    # # def my_formula_13(x):
-    # #     return (w13[1]*x+w013)/(-1*w13[0])
-
-    # # graph(my_formula_13, range(-10, 30))
-
-    # # x=[]
-    # # y=[]
-    # # f = open("Class1.txt","r")
-    # # fl =f.readlines()[N:500]
-    # # f.close
-    # # i=0
-    # # for lines in fl:
-    # #     lines=lines.split();
-    # #     x.append(float(lines[0]))
-    # #     y.append(float(lines[1]))
-    # #     i+=1
-
-    # # # print(x)
-    # # plt.plot(x,y,'bs')
-
-    # # f = open("Class3.txt","r")
-    # # fl =f.readlines()[N:500]
-    # # f.close
-    # # x=[]
-    # # y=[]
-    # # i=0
-    # # for lines in fl:
-    # #     lines=lines.split();
-    # #     x.append(float(lines[0]))
-    # #     y.append(float(lines[1]))
-    # #     i+=1
-
-    # # plt.plot(x,y,'ro')
-    # # # print(x)
-
-    # # plt.show()
-
-
-
-    # # # first for g23
-    
-    # w23 = [((mean_x_class2[0]-mean_x_class3[0])*sigma_inverse), ((mean_x_class2[1]-mean_x_class3[1])*sigma_inverse)]
-
-    # print(w23)
-
-    # w023 = pow((mean_x_class2[0]-mean_x_class3[0]),2) + pow((mean_x_class2[1]-mean_x_class3[1]),2)
-    # # # print(w023)
-    # w023 *= (sigma_inverse);
-    # w023 /= -2;
-    # # # print(w023)
-    # w023 += log(prior_class2/prior_class3)
-    # print(w023) 
-
-
-    # #for g23
-
-    # f = open("Class2.txt","r")
-    # fl =f.readlines()[N:500]
-    # f.close
-    
-    # for lines in fl:
-    #     lines=lines.split();
-    #     # print(lines[0]," ",lines[1])
-    #     g23 = (float(lines[0])*w23[0]) + (float(lines[1])*w23[1]) 
-    #     g23 += w023
-
-    #     # print("g23 = ", g23);
-
-#     def my_formula_23(x):
-#         return (w23[1]*x+w023)/(-1*w23[0])
-
-#     graph(my_formula_23, range(-10, 30))
-
-#     x=[]
-#     y=[]
-#     f = open("Class2.txt","r")
-#     fl =f.readlines()[N:500]
-#     f.close
-#     i=0
-#     for lines in fl:
-#         lines=lines.split();
-#         x.append(float(lines[0]))
-#         y.append(float(lines[1]))
-#         i+=1
-
-#     # print(x)
-#     plt.plot(x,y,'bs')
-
-#     f = open("Class3.txt","r")
-#     fl =f.readlines()[N:500]
-#     f.close
-#     x=[]
-#     y=[]
-#     i=0
-#     for lines in fl:
-#         lines=lines.split();
-#         x.append(float(lines[0]))
-#         y.append(float(lines[1]))
-#         i+=1
-
-#     plt.plot(x,y,'ro')
-#     # print(x)
-
-#     plt.show()
+    plt.plot(x,y,'ro')
+    # print(x)
+    plt.axis([-500, 2500, -1000, 3000])
+    plt.show()
 
     
 
