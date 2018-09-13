@@ -1,7 +1,7 @@
 from array import *
 from math import *
-import numpy as np  
-import matplotlib.pyplot as plt
+#import numpy as np  
+#import matplotlib.pyplot as plt
 
 # M=500
 # N=375

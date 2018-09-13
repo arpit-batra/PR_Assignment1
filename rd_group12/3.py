@@ -31,7 +31,7 @@ def readDataSetTraining(fileName):
     f.close()
     return dSet
 
-
+2
 def readDataSetTesting(fileName):
     f = open(fileName,"r")
     fl =f.readlines()
