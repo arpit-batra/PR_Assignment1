@@ -87,7 +87,7 @@ def calcW0(mean,cov_matrix_inverse,prior,det):
     t = [((mean[0]*cov_matrix_inverse[0][0])+(mean[1]*cov_matrix_inverse[1][0])), ((mean[0]*cov_matrix_inverse[0][1])+(mean[1]*cov_matrix_inverse[1][1]))]
     w0 = ((t[0]*mean[0])+(t[1]*mean[1]))/(-1*2)
     w0 += log(prior)
-    w0 -= (det/2)
+    w0 -= log(det/2)
     return w0
 
 def calcG(w2,w1,w0,x):
@@ -139,6 +139,26 @@ def inverseMatrix(cov_matrix_b):
         for j in range(d):
             cov_matrix_b[i][j] /= det;
     return cov_matrix_b
+
+def computePrior(class_no):
+    f = open("class1.txt","r")
+    fl =f.readlines()
+    c1 = int(ceil(0.75*len(fl)))
+    f = open("class2.txt","r")
+    fl =f.readlines()
+    c2 = int(ceil(0.75*len(fl)))
+    f = open("class3.txt","r")
+    fl =f.readlines()
+    c3 = int(ceil(0.75*len(fl)))
+    t=c1+c2+c3
+    ans=0.0
+    if class_no==1:
+        ans = (1.0*c1)/(1.0*t)
+    elif class_no==2:
+        ans = (1.0*c2)/(1.0*t)
+    elif class_no==3:
+        ans = (1.0*c3)/(1.0*t)
+    return ans
 
 
 
@@ -196,9 +216,10 @@ def main():
 
     #CASE - C (All covaraince matrix are not equal but diagonal)
 
-    prior_class1 = (0.75*500)/(0.75*500 + 0.75*500 + 0.75*500)
-    prior_class2 = prior_class3 = prior_class1
-
+    prior_class1 = computePrior(1)
+    prior_class2 = computePrior(2)
+    prior_class3 = computePrior(3)
+    
     print(prior_class1, " ", prior_class2, " ", prior_class3)
 
     #Calc w2, w1 and w0
@@ -270,10 +291,88 @@ def main():
             # print("3")
     print("c3_1 = ", c3_1, "c3_2 = ", c3_2, "c3_3 = ", c3_3)
     print ("End of Class 3")
-    
 
-    # x = np.linspace(-100, 100, 100)
-    # y = np.linspace(-100, 100, 100)
+    # for g12, w2_ij = (inverse of covariance matrx 1 - inverse of covariance matrx 2)  matrix of 2*2
+    # w2_12 = [[0.0 for x in range(d)] for y in range(d)]
+    # for i in range(d):
+    #     for j in range(d):
+    #         w2_12[i][j] = cov_mat_class1[i][j]-cov_mat_class2[i][j]
+    # print(w2_12[0][0], " ",  w2_12[0][1])
+    # print(w2_12[1][0], " ",  w2_12[1][1])
+
+    # # for w1_12 - matrix of 2*1
+    # w1_12 = [( (cov_mat_class1[0][0]*mean_x_class1[0])+(cov_mat_class1[0][1]*mean_x_class1[1]) ), ( (cov_mat_class1[1][0]*mean_x_class1[0])+(cov_mat_class1[1][1]*mean_x_class1[1]) )  ]
+    # w1_12[0] -= ( (cov_mat_class2[0][0]*mean_x_class2[0])+(cov_mat_class2[0][1]*mean_x_class2[1]) )
+    # w1_12[1] -= ( (cov_mat_class2[1][0]*mean_x_class2[0])+(cov_mat_class2[1][1]*mean_x_class2[1]) )
+
+    
+    # # w0_12 - constant
+    # temp = [((mean_x_class1[0]*cov_mat_class1[0][0])+(mean_x_class1[1]*cov_mat_class1[1][0])), ( (mean_x_class1[0]*cov_mat_class1[0][1])+(mean_x_class1[1]*cov_mat_class1[1][1]) )]
+    # w0_12 = ((temp[0]*mean_x_class1[0])+(temp[1]*mean_x_class1[1]))/(-1*2)
+    # temp = [((mean_x_class2[0]*cov_mat_class2[0][0])+(mean_x_class2[1]*cov_mat_class2[1][0])), ( (mean_x_class2[0]*cov_mat_class2[0][1])+(mean_x_class2[1]*cov_mat_class2[1][1]) )]
+    # w0_12 += ((temp[0]*mean_x_class2[0])+(temp[1]*mean_x_class2[1]))/(2)
+    # w0_12 -= (log(pow(det_class1,2)/pow(det_class2,2)))/2;
+    # w0_12 += log(prior_class1/prior_class2);
+
+    # print(w0_12)
+
+
+    # print( "\n-------------------------------------------------------------------------------------------------------------", "\n")
+    
+    # # for g13, w2_ij = (inverse of covariance matrx i - inverse of covariance matrx j)  matrix of 2*2
+    # w2_13 = [[0.0 for x in range(d)] for y in range(d)]
+    # for i in range(d):
+    #     for j in range(d):
+    #         w2_13[i][j] = cov_mat_class1[i][j]-cov_mat_class3[i][j]
+    # print(w2_13[0][0], " ",  w2_13[0][1])
+    # print(w2_13[1][0], " ",  w2_13[1][1])
+
+    # # for w1_13 - matrix of 2*1
+    # w1_13 = [( (cov_mat_class1[0][0]*mean_x_class1[0])+(cov_mat_class1[0][1]*mean_x_class1[1]) ), ( (cov_mat_class1[1][0]*mean_x_class1[0])+(cov_mat_class1[1][1]*mean_x_class1[1]) )  ]
+    # w1_13[0] -= ( (cov_mat_class3[0][0]*mean_x_class3[0])+(cov_mat_class3[0][1]*mean_x_class3[1]) )
+    # w1_13[1] -= ( (cov_mat_class3[1][0]*mean_x_class3[0])+(cov_mat_class3[1][1]*mean_x_class3[1]) )
+
+    
+    # # w0_13 - constant
+    # temp = [((mean_x_class1[0]*cov_mat_class1[0][0])+(mean_x_class1[1]*cov_mat_class1[1][0])), ( (mean_x_class1[0]*cov_mat_class1[0][1])+(mean_x_class1[1]*cov_mat_class1[1][1]) )]
+    # w0_13 = ((temp[0]*mean_x_class1[0])+(temp[1]*mean_x_class1[1]))/(-1*2)
+    # temp = [((mean_x_class3[0]*cov_mat_class3[0][0])+(mean_x_class3[1]*cov_mat_class3[1][0])), ( (mean_x_class3[0]*cov_mat_class3[0][1])+(mean_x_class3[1]*cov_mat_class3[1][1]) )]
+    # w0_13 += ((temp[0]*mean_x_class3[0])+(temp[1]*mean_x_class3[1]))/(2)
+    # w0_13 -= (log(pow(det_class1,2)/pow(det_class3,2)))/2;
+    # w0_13 += log(prior_class1/prior_class2);
+
+    # print(w0_13)
+
+    # print( "\n-------------------------------------------------------------------------------------------------------------", "\n")
+    
+    # # for g23, w2_ij = (inverse of covariance matrx i - inverse of covariance matrx j)  matrix of 2*2
+    # w2_23 = [[0.0 for x in range(d)] for y in range(d)]
+    # for i in range(d):
+    #     for j in range(d):
+    #         w2_23[i][j] = cov_mat_class2[i][j]-cov_mat_class3[i][j]
+    # print(w2_23[0][0], " ",  w2_23[0][1])
+    # print(w2_23[1][0], " ",  w2_23[1][1])
+
+    # # for w2_23 - matrix of 2*1
+    # w1_23 = [( (cov_mat_class2[0][0]*mean_x_class2[0])+(cov_mat_class2[0][1]*mean_x_class2[1]) ), ( (cov_mat_class2[1][0]*mean_x_class2[0])+(cov_mat_class2[1][1]*mean_x_class2[1]) )  ]
+    # w1_23[0] -= ( (cov_mat_class3[0][0]*mean_x_class3[0])+(cov_mat_class3[0][1]*mean_x_class3[1]) )
+    # w1_23[1] -= ( (cov_mat_class3[1][0]*mean_x_class3[0])+(cov_mat_class3[1][1]*mean_x_class3[1]) )
+
+    
+    # # w0_23 - constant
+    # temp = [((mean_x_class2[0]*cov_mat_class2[0][0])+(mean_x_class2[1]*cov_mat_class2[1][0])), ( (mean_x_class2[0]*cov_mat_class2[0][1])+(mean_x_class2[1]*cov_mat_class2[1][1]) )]
+    # w0_23 = ((temp[0]*mean_x_class2[0])+(temp[1]*mean_x_class2[1]))/(-1*2)
+    # temp = [((mean_x_class3[0]*cov_mat_class3[0][0])+(mean_x_class3[1]*cov_mat_class3[1][0])), ( (mean_x_class3[0]*cov_mat_class3[0][1])+(mean_x_class3[1]*cov_mat_class3[1][1]) )]
+    # w0_23 += ((temp[0]*mean_x_class3[0])+(temp[1]*mean_x_class3[1]))/(2)
+    # w0_23 -= (log(pow(det_class2,2)/pow(det_class3,2)))/2;
+    # w0_23 += log(prior_class2/prior_class3);
+
+    # print(w0_23)
+    # print( "\n-------------------------------------------------------------------------------------------------------------", "\n")
+        
+
+    # x = np.linspace(-500, 2500)
+    # y = np.linspace(-1000, 3000)
     # X, Y = np.meshgrid(x,y)
     # F = (w2_12[0][0])*(X**2) + (w2_12[1][1])*(Y**2) + X*Y*(w2_12[0][1]+w2_12[1][0]) + w1_12[0]*X + w1_12[1]*Y + w0_12 
     # plt.contour(X,Y,F,[0],cmap=plt.get_cmap('autumn'))
@@ -284,7 +383,7 @@ def main():
     # # plt.show()    
     # x=[]
     # y=[]
-    # f = open("Class1.txt","r")
+    # f = open("class1.txt","r")
     # fl =f.readlines()[N:500]
     # f.close
     # i=0
@@ -297,7 +396,7 @@ def main():
     # # print(x)
     # plt.plot(x,y,'bs')
 
-    # f = open("Class2.txt","r")
+    # f = open("class2.txt","r")
     # fl =f.readlines()[N:500]
     # f.close
     # x=[]
@@ -312,7 +411,7 @@ def main():
     # plt.plot(x,y,'ro')
     # # print(x)
 
-    # f = open("Class3.txt","r")
+    # f = open("class3.txt","r")
     # fl =f.readlines()[N:500]
     # f.close
     # x=[]
@@ -325,7 +424,7 @@ def main():
     #     i+=1
 
     # plt.plot(x,y,'gp')
-
+    # plt.axis([300, 600, 500, 2500])
     # plt.show()
 
 

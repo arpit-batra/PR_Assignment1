@@ -79,7 +79,7 @@ def calcW0(mean,cov_matrix_inverse,prior,det):
     t = [((mean[0]*cov_matrix_inverse[0][0])+(mean[1]*cov_matrix_inverse[1][0])), ((mean[0]*cov_matrix_inverse[0][1])+(mean[1]*cov_matrix_inverse[1][1]))]
     w0 = ((t[0]*mean[0])+(t[1]*mean[1]))/(-1*2)
     w0 += log(prior)
-    w0 -= (det/2)
+    w0 -= log(det/2)
     return w0
 
 def calcG(w2,w1,w0,x):
