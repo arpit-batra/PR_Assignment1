@@ -317,55 +317,6 @@ def main():
             # print("3")
     print("c3_1 = ", c3_1, "c3_2 = ", c3_2, "c3_3 = ", c3_3)
     print ("End of Class 3")
-    
-
-
-    X1=readDataSetTesting("Class1.txt")
-    for i in range(M-N):
-        plt.plot(X1[i][0],X1[i][1],'ro')
-
-    X2=readDataSetTesting("Class2.txt")
-    for i in range(M-N):
-        plt.plot(X2[i][0],X2[i][1],'bo')
-
-    X3=readDataSetTesting("Class3.txt")
-    for i in range(M-N):
-        plt.plot(X3[i][0],X3[i][1],'go')
-
-
-    X=getRange()
-    xmin=X[0][0]
-    xmax=X[0][1]
-    ymin=X[1][0]
-    ymax=X[1][1]
-
-    print ("xmin = ",xmin)
-    print ("ymin = ",ymin)
-    print ("xmax = ",xmax)
-    print ("ymax = ",ymax)
-    A = [[0 for x in range(2)] for y in range(2)]
-
-    i=xmin
-    while i<xmax :
-        j=ymin
-        while j<ymax:
-            A[0]=i
-            A[1]=j
-            g1=calcG(w2_1,w1_1,w01,A)
-            g2=calcG(w2_2,w1_2,w02,A)
-            g3=calcG(w2_3,w1_3,w03,A)
-            if g1==max(g1,g2,g3):
-                plt.plot(i,j,'rs',alpha=0.15)
-            elif g2==max(g1,g2,g3):
-                plt.plot(i,j,'bs',alpha=0.15)
-            elif g3==max(g1,g2,g3):
-                plt.plot(i,j,'gs',alpha=0.15)
-            j+=0.45
-        i+=0.45
-    
-    plt.show()   
-
-    
 
 if __name__== "__main__":
   main()
