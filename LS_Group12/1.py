@@ -2,7 +2,7 @@ from array import *
 from math import *
 # import numpy as np  
 # import matplotlib.pyplot as plt
-M=500
+M=501
 N=375
 d=2
 
@@ -122,6 +122,8 @@ def main():
     cov_mat_class3 = computeCovariance(X_class3,mean_x_class3)
     for i in range(d):
         sigma += cov_mat_class3[i][i]
+
+    
 
     print("sigma = ", sigma, "\n")
     sigma /= 6; 
