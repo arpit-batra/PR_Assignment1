@@ -38,7 +38,7 @@ def readDataSetTraining(fileName):
     fl =f.readlines()
     N = int(ceil(0.75*len(fl)))
     # print(N)
-    fl = fl[0:int(N)]
+    fl = fl[0:N]
     dSet = [[0 for x in range(d)] for y in range(N)] # vector which consist of 2 features;
     i=0
     for lines in fl:
@@ -55,7 +55,7 @@ def readDataSetTesting(fileName):
     fl =f.readlines()
     N = int(ceil(0.75*len(fl)))
     M = int(len(fl))
-    print(N, M)
+    # print(N, M)
     fl = fl[int(N):int(M)]
     # print(len(fl))
     dSet = [[0 for x in range(d)] for y in range(len(fl))] # vector which consist of 2 features;

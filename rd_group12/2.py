@@ -40,21 +40,12 @@ def readDataSetWhole(fileName):
     return dSet 
 
 def readDataSetTraining(fileName):
-    N=0
-    M=0
-    if(fileName[5]=="1"):
-        N=N1
-    elif(fileName[5]=="2"):
-        N=N2
-    elif(fileName[5]=="3"):
-        N=N3
-    print(N)
-
     f = open(fileName,"r")
-    fl =f.readlines()[0:N]
-    # N = int(ceil(0.75*len(fl)))
-    # fl = fl[0:int(N)]
-    dSet = [[0 for x in range(d)] for y in range(len(fl))] # vector which consist of 2 features;
+    fl =f.readlines()
+    N = int(ceil(0.75*len(fl)))
+    # print(N)
+    fl = fl[0:N]
+    dSet = [[0 for x in range(d)] for y in range(N)] # vector which consist of 2 features;
     i=0
     for lines in fl:
         lines=lines.split();
@@ -66,24 +57,13 @@ def readDataSetTraining(fileName):
 
 
 def readDataSetTesting(fileName):
-    N=0
-    M=0
-    if(fileName[5]=="1"):
-        N=N1
-        M=M1
-    elif(fileName[5]=="2"):
-        N=N2
-        M=M2
-    elif(fileName[5]=="3"):
-        N=N3
-        M=M3
-    print(N, M)
     f = open(fileName,"r")
-    fl =f.readlines()[N:M]
-    # N = int(ceil(0.75*len(fl)))
-    # M = int(len(fl))
-    # fl = fl[int(N):int(M)]
-    print(len(fl))
+    fl =f.readlines()
+    N = int(ceil(0.75*len(fl)))
+    M = int(len(fl))
+    # print(N, M)
+    fl = fl[int(N):int(M)]
+    # print(len(fl))
     dSet = [[0 for x in range(d)] for y in range(len(fl))] # vector which consist of 2 features;
     i=0
     for lines in fl:
@@ -120,7 +100,7 @@ def calcW(mean,cov_matrix_inverse):
     return w;
 
 def calcW0(mean,cov_matrix_inverse,prior):
-    t = [((mean[0]*cov_matrix_inverse[0][0])+(mean[0]*cov_matrix_inverse[1][0])), ((mean[0]*cov_matrix_inverse[0][1])+(mean[0]*cov_matrix_inverse[1][1]))]
+    t = [((mean[0]*cov_matrix_inverse[0][0])+(mean[1]*cov_matrix_inverse[1][0])), ((mean[0]*cov_matrix_inverse[0][1])+(mean[1]*cov_matrix_inverse[1][1]))]
     w0 = ((t[0]*mean[0])+(t[1]*mean[1]))
     w0 /= (-2)
     w0 += log(prior)

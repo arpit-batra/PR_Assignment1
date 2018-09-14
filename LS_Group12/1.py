@@ -216,59 +216,59 @@ def main():
 
     #Allocating Class to each point
     #For Class 1
-    # c1_1=c1_2=c1_3=0
-    # X1=readDataSetTesting("Class1.txt")
-    # for i in range (M-N):
-    #     g1=calcG(w1,w01,X1[i])
-    #     g2=calcG(w2,w02,X1[i])
-    #     g3=calcG(w3,w03,X1[i])
-    #     if g1==max(g1,g2,g3):
-    #         c1_1+=1
-    #         # print("1")
-    #     elif g2==max(g1,g2,g3):
-    #         c1_2+=1
-    #         # print("2")
-    #     elif g3==max(g1,g2,g3):
-    #         c1_3+=1
-    #         # print("3")
-    # print("c1_1 = ", c1_1, "c1_2 = ", c1_2, "c1_3 = ", c1_3)
-    # print ("End of Class 1")
-    # #For Class 2
-    # c2_1=c2_2=c2_3=0
-    # X2=readDataSetTesting("Class2.txt")
-    # for i in range (M-N):
-    #     g1=calcG(w1,w01,X2[i])
-    #     g2=calcG(w2,w02,X2[i])
-    #     g3=calcG(w3,w03,X2[i])
-    #     if g1==max(g1,g2,g3):
-    #         c2_1+=1
-    #         # print("1")
-    #     elif g2==max(g1,g2,g3):
-    #         c2_2+=1
-    #         # print("2")
-    #     elif g3==max(g1,g2,g3):
-    #         c2_3+=1
-    #         # print("3")
-    # print("c2_1 = ", c2_1, "c2_2 = ", c2_2, "c2_3 = ", c2_3)
-    # print ("End of Class 2")
-    # #For Class 3
-    # c3_1=c3_2=c3_3=0
-    # X3=readDataSetTesting("Class3.txt")
-    # for i in range (M-N):
-    #     g1=calcG(w1,w01,X3[i])
-    #     g2=calcG(w2,w02,X3[i])
-    #     g3=calcG(w3,w03,X3[i])
-    #     if g1==max(g1,g2,g3):
-    #         c3_1+=1
-    #         # print("1")
-    #     elif g2==max(g1,g2,g3):
-    #         c3_2+=1
-    #         # print("2")
-    #     elif g3==max(g1,g2,g3):
-    #         c3_3+=1
-    #         # print("3")
-    # print("c3_1 = ", c3_1, "c3_2 = ", c3_2, "c3_3 = ", c3_3)
-    # print ("End of Class 3")
+    c1_1=c1_2=c1_3=0
+    X1=readDataSetTesting("Class1.txt")
+    for i in range (M-N):
+        g1=calcG(w1,w01,X1[i])
+        g2=calcG(w2,w02,X1[i])
+        g3=calcG(w3,w03,X1[i])
+        if g1==max(g1,g2,g3):
+            c1_1+=1
+            # print("1")
+        elif g2==max(g1,g2,g3):
+            c1_2+=1
+            # print("2")
+        elif g3==max(g1,g2,g3):
+            c1_3+=1
+            # print("3")
+    print("c1_1 = ", c1_1, "c1_2 = ", c1_2, "c1_3 = ", c1_3)
+    print ("End of Class 1")
+    #For Class 2
+    c2_1=c2_2=c2_3=0
+    X2=readDataSetTesting("Class2.txt")
+    for i in range (M-N):
+        g1=calcG(w1,w01,X2[i])
+        g2=calcG(w2,w02,X2[i])
+        g3=calcG(w3,w03,X2[i])
+        if g1==max(g1,g2,g3):
+            c2_1+=1
+            # print("1")
+        elif g2==max(g1,g2,g3):
+            c2_2+=1
+            # print("2")
+        elif g3==max(g1,g2,g3):
+            c2_3+=1
+            # print("3")
+    print("c2_1 = ", c2_1, "c2_2 = ", c2_2, "c2_3 = ", c2_3)
+    print ("End of Class 2")
+    #For Class 3
+    c3_1=c3_2=c3_3=0
+    X3=readDataSetTesting("Class3.txt")
+    for i in range (M-N):
+        g1=calcG(w1,w01,X3[i])
+        g2=calcG(w2,w02,X3[i])
+        g3=calcG(w3,w03,X3[i])
+        if g1==max(g1,g2,g3):
+            c3_1+=1
+            # print("1")
+        elif g2==max(g1,g2,g3):
+            c3_2+=1
+            # print("2")
+        elif g3==max(g1,g2,g3):
+            c3_3+=1
+            # print("3")
+    print("c3_1 = ", c3_1, "c3_2 = ", c3_2, "c3_3 = ", c3_3)
+    print ("End of Class 3")
     
 
 

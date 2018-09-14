@@ -82,7 +82,7 @@ def calcW(mean,cov_matrix_inverse):
     return w;
 
 def calcW0(mean,cov_matrix_inverse,prior):
-    t = [((mean[0]*cov_matrix_inverse[0][0])+(mean[0]*cov_matrix_inverse[1][0])), ((mean[0]*cov_matrix_inverse[0][1])+(mean[0]*cov_matrix_inverse[1][1]))]
+    t = [((mean[0]*cov_matrix_inverse[0][0])+(mean[1]*cov_matrix_inverse[1][0])), ((mean[0]*cov_matrix_inverse[0][1])+(mean[1]*cov_matrix_inverse[1][1]))]
     w0 = ((t[0]*mean[0])+(t[1]*mean[1]))
     w0 /= (-2)
     w0 += log(prior)

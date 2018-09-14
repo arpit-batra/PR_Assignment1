@@ -40,7 +40,7 @@ def readDataSetTraining(fileName):
     fl =f.readlines()
     N = int(ceil(0.75*len(fl)))
     # print(N)
-    fl = fl[0:int(N)]
+    fl = fl[0:N]
     dSet = [[0 for x in range(d)] for y in range(N)] # vector which consist of 2 features;
     i=0
     for lines in fl:
@@ -51,14 +51,14 @@ def readDataSetTraining(fileName):
     f.close()
     return dSet
 
-2
+
 def readDataSetTesting(fileName):
     f = open(fileName,"r")
     fl =f.readlines()
     N = int(ceil(0.75*len(fl)))
     M = int(len(fl))
     # print(N, M)
-    fl = fl[int(N):int(M)]
+    fl = fl[N:M]
     # print(len(fl))
     dSet = [[0 for x in range(d)] for y in range(len(fl))] # vector which consist of 2 features;
     i=0
@@ -94,12 +94,12 @@ def calcW2(cov_matrix_inverse):
     w2 = [[0 for x in range(d)] for y in range(d)]
     for i in range(d):
         for j in range(d):
-            w2[i][j] /= (-2)
+            w2[i][j] = cov_matrix_inverse[i][j]/(-2)
             
     return w2
 
 def calcW1(mean,cov_matrix_inverse):
-    w = [((mean[0]*cov_matrix_inverse[0][0])+(mean[1]*cov_matrix_inverse[0][1])), (mean[0]*cov_matrix_inverse[1][0])+(mean[1]*cov_matrix_inverse[1][1])]
+    w = [((mean[0]*cov_matrix_inverse[0][0])+(mean[1]*cov_matrix_inverse[1][0])), (mean[0]*cov_matrix_inverse[0][1])+(mean[1]*cov_matrix_inverse[1][1])]
     # print(w12)
     return w;
 
@@ -107,7 +107,7 @@ def calcW0(mean,cov_matrix_inverse,prior,det):
     t = [((mean[0]*cov_matrix_inverse[0][0])+(mean[1]*cov_matrix_inverse[1][0])), ((mean[0]*cov_matrix_inverse[0][1])+(mean[1]*cov_matrix_inverse[1][1]))]
     w0 = ((t[0]*mean[0])+(t[1]*mean[1]))/(-1*2)
     w0 += log(prior)
-    w0 -= log(det/2)
+    w0 -= ((log(det))/2)
     return w0
 
 def calcG(w2,w1,w0,x):

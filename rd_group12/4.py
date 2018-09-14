@@ -20,9 +20,9 @@ def graph(formula, x_range):
 def readDataSetWhole(fileName):
     f = open(fileName,"r")
     fl =f.readlines()
-    N = int(ceil(len(fl)))
+    N = int(ceil(0.75*len(fl)))
     # print(N)
-    fl = fl[0:int(N)]
+    fl = fl[0:N]
     dSet = [[0 for x in range(d)] for y in range(N)] # vector which consist of 2 features;
     i=0
     for lines in fl:
@@ -39,7 +39,7 @@ def readDataSetTraining(fileName):
     fl =f.readlines()
     N = int(ceil(0.75*len(fl)))
     # print(N)
-    fl = fl[0:int(N)]
+    fl = fl[0:N]
     dSet = [[0 for x in range(d)] for y in range(N)] # vector which consist of 2 features;
     i=0
     for lines in fl:
@@ -93,12 +93,12 @@ def calcW2(cov_matrix_inverse):
     w2 = [[0 for x in range(d)] for y in range(d)]
     for i in range(d):
         for j in range(d):
-            w2[i][j] /= (-2)
+            w2[i][j] = cov_matrix_inverse[i][j]/(-2)
             
     return w2
 
 def calcW1(mean,cov_matrix_inverse):
-    w = [((mean[0]*cov_matrix_inverse[0][0])+(mean[1]*cov_matrix_inverse[0][1])), (mean[0]*cov_matrix_inverse[1][0])+(mean[1]*cov_matrix_inverse[1][1])]
+    w = [((mean[0]*cov_matrix_inverse[0][0])+(mean[1]*cov_matrix_inverse[1][0])), (mean[0]*cov_matrix_inverse[0][1])+(mean[1]*cov_matrix_inverse[1][1])]
     # print(w12)
     return w;
 
@@ -106,7 +106,7 @@ def calcW0(mean,cov_matrix_inverse,prior,det):
     t = [((mean[0]*cov_matrix_inverse[0][0])+(mean[1]*cov_matrix_inverse[1][0])), ((mean[0]*cov_matrix_inverse[0][1])+(mean[1]*cov_matrix_inverse[1][1]))]
     w0 = ((t[0]*mean[0])+(t[1]*mean[1]))/(-1*2)
     w0 += log(prior)
-    w0 -= log(det/2)
+    w0 -= ((log(det))/2)
     return w0
 
 def calcG(w2,w1,w0,x):
@@ -234,6 +234,7 @@ def main():
     print ("Reading from file")
     X_class1=readDataSetTraining("class1.txt")
     #Calculating Mean
+    print(len(X_class1))
     mean_x_class1 = computeMean(X_class1,len(X_class1))
     print(mean_x_class1[0]," --- ", mean_x_class1[1])
     #Calculating Covariance
@@ -249,6 +250,7 @@ def main():
     #########
     #Reading from file
     X_class2=readDataSetTraining("class2.txt")
+    print(len(X_class2))
     #Calculating Mean
     mean_x_class2 = computeMean(X_class2,len(X_class2))
     print(mean_x_class2[0]," --- ", mean_x_class2[1])
@@ -267,6 +269,7 @@ def main():
     x2=0
     #Reading from file
     X_class3=readDataSetTraining("class3.txt")
+    print(len(X_class3))
     #Calculating Mean
     mean_x_class3 = computeMean(X_class3,len(X_class3))
     print(mean_x_class3[0]," --- ", mean_x_class3[1])
