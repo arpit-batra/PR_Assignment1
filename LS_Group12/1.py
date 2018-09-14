@@ -4,6 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 from matplotlib import colors as mcolors
+import matplotlib.cm as cm
+import matplotlib.mlab as mlab
 
 M=500
 N=375
@@ -81,6 +83,11 @@ def calcW0(mean,sigmaInverse,prior):
 def calcG(w,w0,x):
     g=(w[0]*float(x[0]))+(w[1]*float(x[1]))+w0
     return g
+
+def calcGp(w,w0,x,y):
+    g=(w[0]*x)+(w[1]*y)+w0
+    return g
+
 
 def getRange():
     X1=readDataSetWhole("Class1.txt")
@@ -286,37 +293,46 @@ def main():
     print ("ymax = ",ymax)
     A = [[0 for x in range(2)] for y in range(2)]
 
-    i=xmin
-    while i<xmax :
-        j=ymin
-        while j<ymax:
-            A[0]=i
-            A[1]=j
-            g1=calcG(w1,w01,A)
-            g2=calcG(w2,w02,A)
-            g3=calcG(w3,w03,A)
-            if g1==max(g1,g2,g3):
-                plt.plot(i,j,color='#f6668f',marker='s')
-            elif g2==max(g1,g2,g3):
-                plt.plot(i,j,color='#33d7ff',marker='s')
-            elif g3==max(g1,g2,g3):
-                plt.plot(i,j,color='#75f740',marker='s')
-            j+=0.45
-        i+=0.45
+    # i=xmin
+    # while i<xmax :
+    #     j=ymin
+    #     while j<ymax:
+    #         A[0]=i
+    #         A[1]=j
+    #         g1=calcG(w1,w01,A)
+    #         g2=calcG(w2,w02,A)
+    #         g3=calcG(w3,w03,A)
+    #         if g1==max(g1,g2,g3):
+    #             plt.plot(i,j,color='#f6668f',marker='s')
+    #         elif g2==max(g1,g2,g3):
+    #             plt.plot(i,j,color='#33d7ff',marker='s')
+    #         elif g3==max(g1,g2,g3):
+    #             plt.plot(i,j,color='#75f740',marker='s')
+    #         j+=1
+    #     i+=1
 
-    X1=readDataSetTesting("Class1.txt")
-    for i in range(M-N):
-        plt.plot(X1[i][0],X1[i][1],'ro')
+    # X1=readDataSetTesting("Class1.txt")
+    # for i in range(M-N):
+    #     plt.plot(X1[i][0],X1[i][1],'ro')
 
-    X2=readDataSetTesting("Class2.txt")
-    for i in range(M-N):
-        plt.plot(X2[i][0],X2[i][1],'bo')
+    # X2=readDataSetTesting("Class2.txt")
+    # for i in range(M-N):
+    #     plt.plot(X2[i][0],X2[i][1],'bo')
 
-    X3=readDataSetTesting("Class3.txt")
-    for i in range(M-N):
-        plt.plot(X3[i][0],X3[i][1],'go')
+    # X3=readDataSetTesting("Class3.txt")
+    # for i in range(M-N):
+    #     plt.plot(X3[i][0],X3[i][1],'go')
 
+    print (w3," ",w03)
     
+    x = np.linspace(xmin,xmax,10000)
+    y = np.linspace(ymin,ymax,10000)
+    X, Y = np.meshgrid(x, y)
+    Z=calcGp(w3,w03,X,Y)
+    print (Z)
+    # #plt.figure()
+    plt.contourf(X, Y, Z)
+    #plt.figure()
     plt.show()   
 
     # # first for g12
