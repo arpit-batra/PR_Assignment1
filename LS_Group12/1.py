@@ -293,6 +293,10 @@ def main():
     print ("ymax = ",ymax)
     A = [[0 for x in range(2)] for y in range(2)]
 
+    x = np.linspace(xmin,xmax,100)
+    y = np.linspace(ymin,ymax,100)
+    X, Y = np.meshgrid(x, y)
+    
     i=xmin
     while i<xmax :
         j=ymin
@@ -308,19 +312,19 @@ def main():
                 plt.plot(i,j,color='#33d7ff',marker='s')
             elif g3==max(g1,g2,g3):
                 plt.plot(i,j,color='#75f740',marker='s')
-            j+=1
-        i+=1
+            j+=0.5
+        i+=0.5
 
-    X1=readDataSetTesting("Class1.txt")
-    for i in range(M-N):
+    X1=readDataSetWhole("Class1.txt")
+    for i in range(M):
         plt.plot(X1[i][0],X1[i][1],'ro')
 
-    X2=readDataSetTesting("Class2.txt")
-    for i in range(M-N):
+    X2=readDataSetWhole("Class2.txt")
+    for i in range(M):
         plt.plot(X2[i][0],X2[i][1],'bo')
 
-    X3=readDataSetTesting("Class3.txt")
-    for i in range(M-N):
+    X3=readDataSetWhole("Class3.txt")
+    for i in range(M):
         plt.plot(X3[i][0],X3[i][1],'go')
 
     print (w3," ",w03)

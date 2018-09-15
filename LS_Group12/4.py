@@ -364,20 +364,20 @@ def main():
     #         j+=0.7
     #     i+=0.7
     
-    X1=readDataSetTesting("Class1.txt")
-    for i in range(M-N):
+    X1=readDataSetWhole("Class1.txt")
+    for i in range(M):
         plt.plot(X1[i][0],X1[i][1],'ro')
 
-    X2=readDataSetTesting("Class2.txt")
-    for i in range(M-N):
+    X2=readDataSetWhole("Class2.txt")
+    for i in range(M):
         plt.plot(X2[i][0],X2[i][1],'bo')
 
-    X3=readDataSetTesting("Class3.txt")
-    for i in range(M-N):
+    X3=readDataSetWhole("Class3.txt")
+    for i in range(M):
         plt.plot(X3[i][0],X3[i][1],'go')
 
-    x = np.linspace(-10,10,100)
-    y = np.linspace(-20,5,100)
+    x = np.linspace(xmin,xmax,100)
+    y = np.linspace(ymin,ymax,100)
     X, Y = np.meshgrid(x, y)
     Z=calcGp(w2_3,w1_3,w03,X,Y)
     for i in range (100):
@@ -389,8 +389,8 @@ def main():
     plt.contour(X, Y, Z,7,colors="black")
     #plt.figure()
     #plt.show()   
-    x = np.linspace(4.5,35,100)
-    y = np.linspace(-15,5,100)
+    x = np.linspace(xmin,xmax,100)
+    y = np.linspace(ymin,ymax,100)
     X, Y = np.meshgrid(x, y)
     Z=calcGp(w2_1,w1_1,w01,X,Y)
     for i in range (100):
@@ -401,8 +401,8 @@ def main():
     # #plt.figure()
     plt.contour(X, Y, Z,7,colors="black")
 
-    x = np.linspace(1.7,17,100)
-    y = np.linspace(1.8,20,100)
+    x = np.linspace(xmin,xmax,100)
+    y = np.linspace(ymin,ymax,100)
     X, Y = np.meshgrid(x, y)
     Z=calcGp(w2_2,w1_2,w02,X,Y)
     for i in range (100):
