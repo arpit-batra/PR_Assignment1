@@ -361,8 +361,8 @@ def main():
     #             plt.plot(i,j,color='#33d7ff',marker='s')
     #         elif g3==max(g1,g2,g3):
     #             plt.plot(i,j,color='#75f740',marker='s')
-    #         j+=1
-    #     i+=1
+    #         j+=0.7
+    #     i+=0.7
     
     X1=readDataSetTesting("Class1.txt")
     for i in range(M-N):
@@ -380,26 +380,38 @@ def main():
     y = np.linspace(-20,5,100)
     X, Y = np.meshgrid(x, y)
     Z=calcGp(w2_3,w1_3,w03,X,Y)
+    for i in range (100):
+    	for j in range (100):
+    		if(Z[i][j]<-8.5):
+    			Z[i][j]=-8.5
     print (Z)
     # #plt.figure()
-    plt.contour(X, Y, Z,30,colors="black")
+    plt.contour(X, Y, Z,7,colors="black")
     #plt.figure()
     #plt.show()   
-    x = np.linspace(10,30,100)
-    y = np.linspace(-20,5,100)
+    x = np.linspace(4.5,35,100)
+    y = np.linspace(-15,5,100)
     X, Y = np.meshgrid(x, y)
     Z=calcGp(w2_1,w1_1,w01,X,Y)
+    for i in range (100):
+    	for j in range (100):
+    		if(Z[i][j]<-15):
+    			Z[i][j]=-15
     print (Z)
     # #plt.figure()
-    plt.contour(X, Y, Z,30,colors="black")
+    plt.contour(X, Y, Z,7,colors="black")
 
-    x = np.linspace(-10,30,100)
-    y = np.linspace(5,15,100)
+    x = np.linspace(1.7,17,100)
+    y = np.linspace(1.8,20,100)
     X, Y = np.meshgrid(x, y)
     Z=calcGp(w2_2,w1_2,w02,X,Y)
+    for i in range (100):
+    	for j in range (100):
+    		if(Z[i][j]<-12):
+    			Z[i][j]=-12
     print (Z)
     # #plt.figure()
-    plt.contour(X, Y, Z,30,colors="black")
+    plt.contour(X, Y, Z,7,colors="black")
 
     plt.show()
 
