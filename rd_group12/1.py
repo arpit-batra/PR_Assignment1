@@ -311,55 +311,7 @@ def main():
     print("c3_1 = ", c3_1, "c3_2 = ", c3_2, "c3_3 = ", c3_3)
     print ("End of Class 3")
 
-    # X=getRange()
-    # xmin=X[0][0]
-    # xmax=X[0][1]
-    # ymin=X[1][0]
-    # ymax=X[1][1]
-
-    # print ("xmin = ",xmin)
-    # print ("ymin = ",ymin)
-    # print ("xmax = ",xmax)
-    # print ("ymax = ",ymax)
-    # A = [[0 for x in range(2)] for y in range(2)]
-
-    # i=xmin
-    # while i<xmax :
-    #     j=ymin
-    #     while j<ymax:
-    #         A[0]=i
-    #         A[1]=j
-    #         g1=calcG(w1,w01,A)
-    #         g2=calcG(w2,w02,A)
-    #         g3=calcG(w3,w03,A)
-    #         if g1==max(g1,g2,g3):
-    #             plt.plot(i,j,color='#f6668f',marker='s')
-    #         elif g2==max(g1,g2,g3):
-    #             plt.plot(i,j,color='#33d7ff',marker='s')
-    #         elif g3==max(g1,g2,g3):
-    #             plt.plot(i,j,color='#75f740',marker='s')
-    #         j+=20
-    #     i+=20
-
-    # print("Plotting Data Points")
-
-    # X1=readDataSetTraining("class1.txt")
-    # for i in range(len(X1)):
-    #     plt.plot(X1[i][0],X1[i][1],'ro')
-
-    # X2=readDataSetTraining("class2.txt")
-    # for i in range(len(X2)):
-    #     plt.plot(X2[i][0],X2[i][1],'bo')
-
-    # X3=readDataSetTraining("class3.txt")
-    # for i in range(len(X3)):
-    #     plt.plot(X3[i][0],X3[i][1],'go')
-
-    # plt.xlim(xmin,xmax)
-    # plt.ylim(ymin,ymax)
-    # plt.show()
-
-   X=getRange()
+    X=getRange()
     xmin=X[0][0]
     xmax=X[0][1]
     ymin=X[1][0]
@@ -379,103 +331,35 @@ def main():
             A[1]=j
             g1=calcG(w1,w01,A)
             g2=calcG(w2,w02,A)
-            # g3=calcG(w3,w03,A)
-            if g1==max(g1,g2):
+            g3=calcG(w3,w03,A)
+            if g1==max(g1,g2,g3):
                 plt.plot(i,j,color='#f6668f',marker='s')
-            elif g2==max(g1,g2):
+            elif g2==max(g1,g2,g3):
                 plt.plot(i,j,color='#33d7ff',marker='s')
-            # elif g3==max(g1,g2,g3):
-            #     plt.plot(i,j,color='#75f740',marker='s')
-            j+=0.07
-        i+=0.07
+            elif g3==max(g1,g2,g3):
+                plt.plot(i,j,color='#75f740',marker='s')
+            j+=20
+        i+=20
 
-    X1=readDataSetTraining("Class1.txt")
-    for i in range(N):
+    print("Plotting Data Points")
+
+    X1=readDataSetTraining("class1.txt")
+    for i in range(len(X1)):
         plt.plot(X1[i][0],X1[i][1],'ro')
 
-    X2=readDataSetTraining("Class2.txt")
-    for i in range(N):
+    X2=readDataSetTraining("class2.txt")
+    for i in range(len(X2)):
         plt.plot(X2[i][0],X2[i][1],'bo')
 
-    # X3=readDataSetTraining("Class3.txt")
-    # for i in range(N):
-    #     plt.plot(X3[i][0],X3[i][1],'go')
-        
-    plt.xlim(xmin,xmax)
-    plt.ylim(ymin,ymax)
-    plt.savefig("figure112.png")
-    plt.clf()
-
-    i=xmin
-    while i<xmax :
-        j=ymin
-        while j<ymax:
-            A[0]=i
-            A[1]=j
-            g1=calcG(w1,w01,A)
-            # g2=calcG(w2,w02,A)
-            g3=calcG(w3,w03,A)
-            if g1==max(g1,g3):
-                plt.plot(i,j,color='#f6668f',marker='s')
-            # # elif g2==max(g1,g2):
-            #     plt.plot(i,j,color='#33d7ff',marker='s')
-            elif g3==max(g1,g3):
-                plt.plot(i,j,color='#75f740',marker='s')
-            j+=0.07
-        i+=0.07
-
-    X1=readDataSetTraining("Class1.txt")
-    for i in range(N):
-        plt.plot(X1[i][0],X1[i][1],'ro')
-
-    # X2=readDataSetTraining("Class2.txt")
-    # for i in range(N):
-    #     plt.plot(X2[i][0],X2[i][1],'bo')
-
-    X3=readDataSetTraining("Class3.txt")
-    for i in range(N):
+    X3=readDataSetTraining("class3.txt")
+    for i in range(len(X3)):
         plt.plot(X3[i][0],X3[i][1],'go')
-        
+
     plt.xlim(xmin,xmax)
     plt.ylim(ymin,ymax)
-    plt.savefig("figure113.png")
-    plt.clf()
-    # plt.show()  
+    plt.show()
 
-    i=xmin
-    while i<xmax :
-        j=ymin
-        while j<ymax:
-            A[0]=i
-            A[1]=j
-            # g1=calcG(w1,w01,A)
-            g2=calcG(w2,w02,A)
-            g3=calcG(w3,w03,A)
-            # if g1==max(g1,g2):
-            #     plt.plot(i,j,color='#f6668f',marker='s')
-            if g2==max(g3,g2):
-                plt.plot(i,j,color='#33d7ff',marker='s')
-            elif g3==max(g2,g3):
-                plt.plot(i,j,color='#75f740',marker='s')
-            j+=0.07
-        i+=0.07
-
-    # X1=readDataSetTraining("Class1.txt")
-    # for i in range(N):
-    #     plt.plot(X1[i][0],X1[i][1],'ro')
-
-    X2=readDataSetTraining("Class2.txt")
-    for i in range(N):
-        plt.plot(X2[i][0],X2[i][1],'bo')
-
-    X3=readDataSetTraining("Class3.txt")
-    for i in range(N):
-        plt.plot(X3[i][0],X3[i][1],'go')
-        
-    plt.xlim(xmin,xmax)
-    plt.ylim(ymin,ymax)
-    plt.savefig("figure123.png") 
-    plt.clf()
+  
     
 
 if __name__== "__main__":
