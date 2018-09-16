@@ -303,7 +303,7 @@ def main():
             g1=calcG(w1,w01,A)
             g2=calcG(w2,w02,A)
             g3=calcG(w3,w03,A)
-            if g1==max(g1,g2,g3):
+            if g1==max(g1,g3):
                 plt.plot(i,j,color='#f6668f',marker='s')
             elif g2==max(g1,g2,g3):
                 plt.plot(i,j,color='#33d7ff',marker='s')
