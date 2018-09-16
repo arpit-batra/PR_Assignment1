@@ -320,6 +320,52 @@ def main():
     print("c3_1 = ", c3_1, "c3_2 = ", c3_2, "c3_3 = ", c3_3)
     print ("End of Class 3")
     
+    # X=getRange()
+    # xmin=X[0][0]
+    # xmax=X[0][1]
+    # ymin=X[1][0]
+    # ymax=X[1][1]
+
+    # print ("xmin = ",xmin)
+    # print ("ymin = ",ymin)
+    # print ("xmax = ",xmax)
+    # print ("ymax = ",ymax)
+    # A = [[0 for x in range(2)] for y in range(2)]
+
+    # i=xmin
+    # while i<xmax :
+    #     j=ymin
+    #     while j<ymax:
+    #         A[0]=i
+    #         A[1]=j
+    #         g1=calcG(w2_1,w1_1,w01,A)
+    #         g2=calcG(w2_2,w1_2,w02,A)
+    #         g3=calcG(w2_3,w1_3,w03,A)
+    #         if g1==max(g1,g2,g3):
+    #             plt.plot(i,j,color='#f6668f',marker='s')
+    #         elif g2==max(g1,g2,g3):
+    #             plt.plot(i,j,color='#33d7ff',marker='s')
+    #         elif g3==max(g1,g2,g3):
+    #             plt.plot(i,j,color='#75f740',marker='s')
+    #         j+=0.07
+    #     i+=0.07
+
+    # X1=readDataSetTraining("Class1.txt")
+    # for i in range(N):
+    #     plt.plot(X1[i][0],X1[i][1],'ro')
+
+    # X2=readDataSetTraining("Class2.txt")
+    # for i in range(N):
+    #     plt.plot(X2[i][0],X2[i][1],'bo')
+
+    # X3=readDataSetTraining("Class3.txt")
+    # for i in range(N):
+    #     plt.plot(X3[i][0],X3[i][1],'go')
+
+    # plt.xlim(xmin,xmax)
+    # plt.ylim(ymin,ymax)    
+    # plt.show()  
+
     X=getRange()
     xmin=X[0][0]
     xmax=X[0][1]
@@ -338,15 +384,15 @@ def main():
         while j<ymax:
             A[0]=i
             A[1]=j
-            g1=calcG(w2_1,w1_1,w01,A)
-            g2=calcG(w2_2,w1_2,w02,A)
-            g3=calcG(w2_3,w1_3,w03,A)
-            if g1==max(g1,g2,g3):
+            g1=calcG(w1,w01,A)
+            g2=calcG(w2,w02,A)
+            # g3=calcG(w3,w03,A)
+            if g1==max(g1,g2):
                 plt.plot(i,j,color='#f6668f',marker='s')
-            elif g2==max(g1,g2,g3):
+            elif g2==max(g1,g2):
                 plt.plot(i,j,color='#33d7ff',marker='s')
-            elif g3==max(g1,g2,g3):
-                plt.plot(i,j,color='#75f740',marker='s')
+            # elif g3==max(g1,g2,g3):
+            #     plt.plot(i,j,color='#75f740',marker='s')
             j+=0.07
         i+=0.07
 
@@ -358,74 +404,90 @@ def main():
     for i in range(N):
         plt.plot(X2[i][0],X2[i][1],'bo')
 
+    # X3=readDataSetTraining("Class3.txt")
+    # for i in range(N):
+    #     plt.plot(X3[i][0],X3[i][1],'go')
+        
+    plt.xlim(xmin,xmax)
+    plt.ylim(ymin,ymax)
+    plt.savefig("figure112.png")
+    plt.clf()
+
+    i=xmin
+    while i<xmax :
+        j=ymin
+        while j<ymax:
+            A[0]=i
+            A[1]=j
+            g1=calcG(w1,w01,A)
+            # g2=calcG(w2,w02,A)
+            g3=calcG(w3,w03,A)
+            if g1==max(g1,g3):
+                plt.plot(i,j,color='#f6668f',marker='s')
+            # # elif g2==max(g1,g2):
+            #     plt.plot(i,j,color='#33d7ff',marker='s')
+            elif g3==max(g1,g3):
+                plt.plot(i,j,color='#75f740',marker='s')
+            j+=0.07
+        i+=0.07
+
+    X1=readDataSetTraining("Class1.txt")
+    for i in range(N):
+        plt.plot(X1[i][0],X1[i][1],'ro')
+
+    # X2=readDataSetTraining("Class2.txt")
+    # for i in range(N):
+    #     plt.plot(X2[i][0],X2[i][1],'bo')
+
     X3=readDataSetTraining("Class3.txt")
     for i in range(N):
         plt.plot(X3[i][0],X3[i][1],'go')
-
+        
     plt.xlim(xmin,xmax)
-    plt.ylim(ymin,ymax)    
-    plt.show()   
+    plt.ylim(ymin,ymax)
+    plt.savefig("figure113.png")
+    plt.clf()
+    # plt.show()  
+
+    i=xmin
+    while i<xmax :
+        j=ymin
+        while j<ymax:
+            A[0]=i
+            A[1]=j
+            # g1=calcG(w1,w01,A)
+            g2=calcG(w2,w02,A)
+            g3=calcG(w3,w03,A)
+            # if g1==max(g1,g2):
+            #     plt.plot(i,j,color='#f6668f',marker='s')
+            if g2==max(g3,g2):
+                plt.plot(i,j,color='#33d7ff',marker='s')
+            elif g3==max(g2,g3):
+                plt.plot(i,j,color='#75f740',marker='s')
+            j+=0.07
+        i+=0.07
+
+    # X1=readDataSetTraining("Class1.txt")
+    # for i in range(N):
+    #     plt.plot(X1[i][0],X1[i][1],'ro')
+
+    X2=readDataSetTraining("Class2.txt")
+    for i in range(N):
+        plt.plot(X2[i][0],X2[i][1],'bo')
+
+    X3=readDataSetTraining("Class3.txt")
+    for i in range(N):
+        plt.plot(X3[i][0],X3[i][1],'go')
+        
+    plt.xlim(xmin,xmax)
+    plt.ylim(ymin,ymax)
+    plt.savefig("figure123.png") 
+    plt.clf() 
 
 
 
 
-    # x = np.linspace(-100, 100, 100)
-    # y = np.linspace(-100, 100, 100)
-    # X, Y = np.meshgrid(x,y)
-    # F = (w2_12[0][0])*(X**2) + (w2_12[1][1])*(Y**2) + X*Y*(w2_12[0][1]+w2_12[1][0]) + w1_12[0]*X + w1_12[1]*Y + w0_12 
-    # plt.contour(X,Y,F,[0],cmap=plt.get_cmap('autumn'))
-    # F = (w2_13[0][0])*(X**2) + (w2_13[1][1])*(Y**2) + X*Y*(w2_13[0][1]+w2_13[1][0]) + w1_13[0]*X + w1_13[1]*Y + w0_13
-    # plt.contour(X,Y,F,[0],cmap=plt.get_cmap('winter'))
-    # F = (w2_23[0][0])*(X**2) + (w2_23[1][1])*(Y**2) + X*Y*(w2_23[0][1]+w2_23[1][0]) + w1_23[0]*X + w1_23[1]*Y + w0_23
-    # plt.contour(X,Y,F,[0],cmap=plt.get_cmap('spring'))
-    # # plt.show()    
-    # x=[]
-    # y=[]
-    # f = open("Class1.txt","r")
-    # fl =f.readlines()[N:500]
-    # f.close
-    # i=0
-    # for lines in fl:
-    #     lines=lines.split();
-    #     x.append(float(lines[0]))
-    #     y.append(float(lines[1]))
-    #     i+=1
-
-    # # print(x)
-    # plt.plot(x,y,'bs')
-
-    # f = open("Class2.txt","r")
-    # fl =f.readlines()[N:500]
-    # f.close
-    # x=[]
-    # y=[]
-    # i=0
-    # for lines in fl:
-    #     lines=lines.split();
-    #     x.append(float(lines[0]))
-    #     y.append(float(lines[1]))
-    #     i+=1
-
-    # plt.plot(x,y,'ro')
-    # # print(x)
-
-    # f = open("Class3.txt","r")
-    # fl =f.readlines()[N:500]
-    # f.close
-    # x=[]
-    # y=[]
-    # i=0
-    # for lines in fl:
-    #     lines=lines.split();
-    #     x.append(float(lines[0]))
-    #     y.append(float(lines[1]))
-    #     i+=1
-
-    # plt.plot(x,y,'gp')
-
-    # plt.show()
-
-
+   
 if __name__== "__main__":
   main()
 
