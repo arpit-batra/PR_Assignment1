@@ -287,13 +287,13 @@ def main():
             A[1]=j
             g1=calcG(w1,w01,A)
             g2=calcG(w2,w02,A)
-            g3=calcG(w3,w03,A)
-            if g1==max(g1,g2,g3):
+            # g3=calcG(w3,w03,A)
+            if g1==max(g1,g2):
                 plt.plot(i,j,color='#f6668f',marker='s')
-            elif g2==max(g1,g2,g3):
+            elif g2==max(g1,g2):
                 plt.plot(i,j,color='#33d7ff',marker='s')
-            elif g3==max(g1,g2,g3):
-                plt.plot(i,j,color='#75f740',marker='s')
+            # elif g3==max(g1,g2,g3):
+            #     plt.plot(i,j,color='#75f740',marker='s')
             j+=0.07
         i+=0.07
 
@@ -305,203 +305,85 @@ def main():
     for i in range(N):
         plt.plot(X2[i][0],X2[i][1],'bo')
 
+    # X3=readDataSetTraining("Class3.txt")
+    # for i in range(N):
+    #     plt.plot(X3[i][0],X3[i][1],'go')
+        
+    plt.xlim(xmin,xmax)
+    plt.ylim(ymin,ymax)
+    plt.savefig("figure112.png")
+    plt.clf()
+
+    i=xmin
+    while i<xmax :
+        j=ymin
+        while j<ymax:
+            A[0]=i
+            A[1]=j
+            g1=calcG(w1,w01,A)
+            # g2=calcG(w2,w02,A)
+            g3=calcG(w3,w03,A)
+            if g1==max(g1,g3):
+                plt.plot(i,j,color='#f6668f',marker='s')
+            # # elif g2==max(g1,g2):
+            #     plt.plot(i,j,color='#33d7ff',marker='s')
+            elif g3==max(g1,g3):
+                plt.plot(i,j,color='#75f740',marker='s')
+            j+=0.07
+        i+=0.07
+
+    X1=readDataSetTraining("Class1.txt")
+    for i in range(N):
+        plt.plot(X1[i][0],X1[i][1],'ro')
+
+    # X2=readDataSetTraining("Class2.txt")
+    # for i in range(N):
+    #     plt.plot(X2[i][0],X2[i][1],'bo')
+
     X3=readDataSetTraining("Class3.txt")
     for i in range(N):
         plt.plot(X3[i][0],X3[i][1],'go')
         
     plt.xlim(xmin,xmax)
     plt.ylim(ymin,ymax)
-    plt.show()   
+    plt.savefig("figure113.png")
+    plt.clf()
+    # plt.show()  
 
+    i=xmin
+    while i<xmax :
+        j=ymin
+        while j<ymax:
+            A[0]=i
+            A[1]=j
+            # g1=calcG(w1,w01,A)
+            g2=calcG(w2,w02,A)
+            g3=calcG(w3,w03,A)
+            # if g1==max(g1,g2):
+            #     plt.plot(i,j,color='#f6668f',marker='s')
+            if g2==max(g3,g2):
+                plt.plot(i,j,color='#33d7ff',marker='s')
+            elif g3==max(g2,g3):
+                plt.plot(i,j,color='#75f740',marker='s')
+            j+=0.07
+        i+=0.07
 
+    # X1=readDataSetTraining("Class1.txt")
+    # for i in range(N):
+    #     plt.plot(X1[i][0],X1[i][1],'ro')
 
-       
+    X2=readDataSetTraining("Class2.txt")
+    for i in range(N):
+        plt.plot(X2[i][0],X2[i][1],'bo')
 
-    # # first for g12
-
-    # # f = open("Class1.txt","r")
-    # # fl =f.readlines()[N:500]
-    # # f.close
-    # # for lines in fl:
-    # #     lines=lines.split();
-    # #     # print(lines[0]," ",lines[1])
-    # #     g12 = (float(lines[0])*w12[0]) + (float(lines[1])*w12[1]) 
-    # #     g12 += w012
-    #     # print("g12 = ", g12);
-
-
-    # # def my_formula_12(x):
-    # #     return (w12[1]*x+w012)/(-1*w12[0])
-
-    # # graph(my_formula_12, range(-10, 30))
-
-    # # x=[]
-    # # y=[]
-    # # f = open("Class1.txt","r")
-    # # fl =f.readlines()[N:500]
-    # # f.close
-    # # i=0
-    # # for lines in fl:
-    # #     lines=lines.split();
-    # #     x.append(float(lines[0]))
-    # #     y.append(float(lines[1]))
-    # #     i+=1
-
-    # # # print(x)
-    # # plt.plot(x,y,'bs')
-
-    # # f = open("Class2.txt","r")
-    # # fl =f.readlines()[N:500]
-    # # f.close
-    # # x=[]
-    # # y=[]
-    # # i=0
-    # # for lines in fl:
-    # #     lines=lines.split();
-    # #     x.append(float(lines[0]))
-    # #     y.append(float(lines[1]))
-    # #     i+=1
-
-    # # plt.plot(x,y,'ro')
-    # # # print(x)
-
-    # # plt.show()
-    
-    # # first for g13
-    
-    # # print((mean_x_class1[0]),"  ", (mean_x_class3[0]), "\n")
-    # w13 = [((mean_x_class1[0]-mean_x_class3[0])*sigma_inverse), ((mean_x_class1[1]-mean_x_class3[1])*sigma_inverse)]
-
-    # # print(w13)
-    # w013 = pow((mean_x_class1[0]-mean_x_class3[0]),2) + pow((mean_x_class1[1]-mean_x_class3[1]),2)
-    # # # print(w013)
-    # w013 *= (sigma_inverse);
-    # w013 /= -2;
-    # # # print(w013)
-    # w013 += log(prior_class1/prior_class3)
-    # print(w013) 
-
-
-    # # #for g13
-
-    # # f = open("Class3.txt","r")
-    # # fl =f.readlines()[N:500]
-    # # f.close
-    
-    # # for lines in fl:
-    # #     lines=lines.split();
-    # #     # print(lines[0]," ",lines[1])
-    # #     g13 = (float(lines[0])*w13[0]) + (float(lines[1])*w13[1]) 
-    # #     g13 += w013
-
-    # #     # print("g13 = ", g13);
-
-    # # def my_formula_13(x):
-    # #     return (w13[1]*x+w013)/(-1*w13[0])
-
-    # # graph(my_formula_13, range(-10, 30))
-
-    # # x=[]
-    # # y=[]
-    # # f = open("Class1.txt","r")
-    # # fl =f.readlines()[N:500]
-    # # f.close
-    # # i=0
-    # # for lines in fl:
-    # #     lines=lines.split();
-    # #     x.append(float(lines[0]))
-    # #     y.append(float(lines[1]))
-    # #     i+=1
-
-    # # # print(x)
-    # # plt.plot(x,y,'bs')
-
-    # # f = open("Class3.txt","r")
-    # # fl =f.readlines()[N:500]
-    # # f.close
-    # # x=[]
-    # # y=[]
-    # # i=0
-    # # for lines in fl:
-    # #     lines=lines.split();
-    # #     x.append(float(lines[0]))
-    # #     y.append(float(lines[1]))
-    # #     i+=1
-
-    # # plt.plot(x,y,'ro')
-    # # # print(x)
-
-    # # plt.show()
-
-
-
-    # # # first for g23
-    
-    # w23 = [((mean_x_class2[0]-mean_x_class3[0])*sigma_inverse), ((mean_x_class2[1]-mean_x_class3[1])*sigma_inverse)]
-
-    # print(w23)
-
-    # w023 = pow((mean_x_class2[0]-mean_x_class3[0]),2) + pow((mean_x_class2[1]-mean_x_class3[1]),2)
-    # # # print(w023)
-    # w023 *= (sigma_inverse);
-    # w023 /= -2;
-    # # # print(w023)
-    # w023 += log(prior_class2/prior_class3)
-    # print(w023) 
-
-
-    # #for g23
-
-    # f = open("Class2.txt","r")
-    # fl =f.readlines()[N:500]
-    # f.close
-    
-    # for lines in fl:
-    #     lines=lines.split();
-    #     # print(lines[0]," ",lines[1])
-    #     g23 = (float(lines[0])*w23[0]) + (float(lines[1])*w23[1]) 
-    #     g23 += w023
-
-    #     # print("g23 = ", g23);
-
-#     def my_formula_23(x):
-#         return (w23[1]*x+w023)/(-1*w23[0])
-
-#     graph(my_formula_23, range(-10, 30))
-
-#     x=[]
-#     y=[]
-#     f = open("Class2.txt","r")
-#     fl =f.readlines()[N:500]
-#     f.close
-#     i=0
-#     for lines in fl:
-#         lines=lines.split();
-#         x.append(float(lines[0]))
-#         y.append(float(lines[1]))
-#         i+=1
-
-#     # print(x)
-#     plt.plot(x,y,'bs')
-
-#     f = open("Class3.txt","r")
-#     fl =f.readlines()[N:500]
-#     f.close
-#     x=[]
-#     y=[]
-#     i=0
-#     for lines in fl:
-#         lines=lines.split();
-#         x.append(float(lines[0]))
-#         y.append(float(lines[1]))
-#         i+=1
-
-#     plt.plot(x,y,'ro')
-#     # print(x)
-
-#     plt.show()
-
-    
+    X3=readDataSetTraining("Class3.txt")
+    for i in range(N):
+        plt.plot(X3[i][0],X3[i][1],'go')
+        
+    plt.xlim(xmin,xmax)
+    plt.ylim(ymin,ymax)
+    plt.savefig("figure123.png") 
+    plt.clf()
 
 if __name__== "__main__":
   main()
