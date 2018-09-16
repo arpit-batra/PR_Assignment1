@@ -293,9 +293,6 @@ def main():
     print ("ymax = ",ymax)
     A = [[0 for x in range(2)] for y in range(2)]
 
-    x = np.linspace(xmin,xmax,100)
-    y = np.linspace(ymin,ymax,100)
-    X, Y = np.meshgrid(x, y)
     
     i=xmin
     while i<xmax :
@@ -315,16 +312,16 @@ def main():
             j+=0.5
         i+=0.5
 
-    X1=readDataSetWhole("Class1.txt")
-    for i in range(M):
+    X1=readDataSetTraining("Class1.txt")
+    for i in range(N):
         plt.plot(X1[i][0],X1[i][1],'ro')
 
-    X2=readDataSetWhole("Class2.txt")
-    for i in range(M):
+    X2=readDataSetTraining("Class2.txt")
+    for i in range(N):
         plt.plot(X2[i][0],X2[i][1],'bo')
 
-    X3=readDataSetWhole("Class3.txt")
-    for i in range(M):
+    X3=readDataSetTraining("Class3.txt")
+    for i in range(N):
         plt.plot(X3[i][0],X3[i][1],'go')
 
     print (w3," ",w03)
@@ -337,6 +334,8 @@ def main():
     # # #plt.figure()
     # plt.contourf(X, Y, Z)
     # #plt.figure()
+    plt.xlim(xmin,xmax)
+    plt.ylim(ymin,ymax)
     plt.show()   
 
     # # first for g12

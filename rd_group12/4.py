@@ -383,6 +383,9 @@ def main():
     print ("ymin = ",ymin)
     print ("xmax = ",xmax)
     print ("ymax = ",ymax)
+
+    print("Classifying Every Point")
+
     A = [[0 for x in range(2)] for y in range(2)]
 
     # i=xmin
@@ -403,17 +406,21 @@ def main():
     #         j+=25
     #     i+=25
 
-    X1=readDataSetTesting("class1.txt")
+    print("Plottind Data Points")
+
+    X1=readDataSetTraining("class1.txt")
     for i in range(len(X1)):
         plt.plot(X1[i][0],X1[i][1],'ro')
 
-    X2=readDataSetTesting("class2.txt")
+    X2=readDataSetTraining("class2.txt")
     for i in range(len(X2)):
         plt.plot(X2[i][0],X2[i][1],'bo')
 
-    X3=readDataSetTesting("class3.txt")
+    X3=readDataSetTraining("class3.txt")
     for i in range(len(X3)):
         plt.plot(X3[i][0],X3[i][1],'go')
+
+    print("Drawing Contours")
 
     x = np.linspace(xmin,xmax,100)
     y = np.linspace(ymin,ymax,100)
@@ -451,7 +458,8 @@ def main():
     print (Z)
    # #plt.figure()
     plt.contour(X, Y, Z,7,colors="green")      
-
+    plt.xlim(xmin,xmax)
+    plt.ylim(ymin,ymax)
     plt.show()
 
 

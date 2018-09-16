@@ -341,19 +341,22 @@ def main():
             j+=20
         i+=20
 
-    X1=readDataSetTesting("class1.txt")
+    print("Plotting Data Points")
+
+    X1=readDataSetTraining("class1.txt")
     for i in range(len(X1)):
         plt.plot(X1[i][0],X1[i][1],'ro')
 
-    X2=readDataSetTesting("class2.txt")
+    X2=readDataSetTraining("class2.txt")
     for i in range(len(X2)):
         plt.plot(X2[i][0],X2[i][1],'bo')
 
-    X3=readDataSetTesting("class3.txt")
+    X3=readDataSetTraining("class3.txt")
     for i in range(len(X3)):
         plt.plot(X3[i][0],X3[i][1],'go')
 
-    
+    plt.xlim(xmin,xmax)
+    plt.ylim(ymin,ymax)
     plt.show()
 
     # w12 = [((mean_x_class1[0]-mean_x_class2[0])*sigma_inverse), ((mean_x_class1[1]-mean_x_class2[1])*sigma_inverse)]

@@ -346,73 +346,74 @@ def main():
     print ("ymax = ",ymax)
     A = [[0 for x in range(2)] for y in range(2)]
 
-    # i=xmin
-    # while i<xmax :
-    #     j=ymin
-    #     while j<ymax:
-    #         A[0]=i
-    #         A[1]=j
-    #         g1=calcG(w2_1,w1_1,w01,A)
-    #         g2=calcG(w2_2,w1_2,w02,A)
-    #         g3=calcG(w2_3,w1_3,w03,A)
-    #         if g1==max(g1,g2,g3):
-    #             plt.plot(i,j,color='#f6668f',marker='s')
-    #         elif g2==max(g1,g2,g3):
-    #             plt.plot(i,j,color='#33d7ff',marker='s')
-    #         elif g3==max(g1,g2,g3):
-    #             plt.plot(i,j,color='#75f740',marker='s')
-    #         j+=0.7
-    #     i+=0.7
+    i=xmin
+    while i<xmax :
+        j=ymin
+        while j<ymax:
+            A[0]=i
+            A[1]=j
+            g1=calcG(w2_1,w1_1,w01,A)
+            g2=calcG(w2_2,w1_2,w02,A)
+            g3=calcG(w2_3,w1_3,w03,A)
+            if g1==max(g1,g2,g3):
+                plt.plot(i,j,color='#f6668f',marker='s')
+            elif g2==max(g1,g2,g3):
+                plt.plot(i,j,color='#33d7ff',marker='s')
+            elif g3==max(g1,g2,g3):
+                plt.plot(i,j,color='#75f740',marker='s')
+            j+=0.5
+        i+=0.5
     
-    X1=readDataSetWhole("Class1.txt")
-    for i in range(M):
+    X1=readDataSetTraining("Class1.txt")
+    for i in range(N):
         plt.plot(X1[i][0],X1[i][1],'ro')
 
-    X2=readDataSetWhole("Class2.txt")
-    for i in range(M):
+    X2=readDataSetTraining("Class2.txt")
+    for i in range(N):
         plt.plot(X2[i][0],X2[i][1],'bo')
 
-    X3=readDataSetWhole("Class3.txt")
-    for i in range(M):
+    X3=readDataSetTraining("Class3.txt")
+    for i in range(N):
         plt.plot(X3[i][0],X3[i][1],'go')
 
-    x = np.linspace(xmin,xmax,100)
-    y = np.linspace(ymin,ymax,100)
-    X, Y = np.meshgrid(x, y)
-    Z=calcGp(w2_3,w1_3,w03,X,Y)
-    for i in range (100):
-    	for j in range (100):
-    		if(Z[i][j]<-8.5):
-    			Z[i][j]=-8.5
-    print (Z)
+    # x = np.linspace(xmin,xmax,100)
+    # y = np.linspace(ymin,ymax,100)
+    # X, Y = np.meshgrid(x, y)
+    # Z=calcGp(w2_3,w1_3,w03,X,Y)
+    # for i in range (100):
+    # 	for j in range (100):
+    # 		if(Z[i][j]<-8.5):
+    # 			Z[i][j]=-8.5
+    # print (Z)
+    # # #plt.figure()
+    # plt.contour(X, Y, Z,7,colors="black")
     # #plt.figure()
-    plt.contour(X, Y, Z,7,colors="black")
-    #plt.figure()
-    #plt.show()   
-    x = np.linspace(xmin,xmax,100)
-    y = np.linspace(ymin,ymax,100)
-    X, Y = np.meshgrid(x, y)
-    Z=calcGp(w2_1,w1_1,w01,X,Y)
-    for i in range (100):
-    	for j in range (100):
-    		if(Z[i][j]<-15):
-    			Z[i][j]=-15
-    print (Z)
-    # #plt.figure()
-    plt.contour(X, Y, Z,7,colors="black")
+    # #plt.show()   
+    # x = np.linspace(xmin,xmax,100)
+    # y = np.linspace(ymin,ymax,100)
+    # X, Y = np.meshgrid(x, y)
+    # Z=calcGp(w2_1,w1_1,w01,X,Y)
+    # for i in range (100):
+    # 	for j in range (100):
+    # 		if(Z[i][j]<-15):
+    # 			Z[i][j]=-15
+    # print (Z)
+    # # #plt.figure()
+    # plt.contour(X, Y, Z,7,colors="black")
 
-    x = np.linspace(xmin,xmax,100)
-    y = np.linspace(ymin,ymax,100)
-    X, Y = np.meshgrid(x, y)
-    Z=calcGp(w2_2,w1_2,w02,X,Y)
-    for i in range (100):
-    	for j in range (100):
-    		if(Z[i][j]<-12):
-    			Z[i][j]=-12
-    print (Z)
-    # #plt.figure()
-    plt.contour(X, Y, Z,7,colors="black")
-
+    # x = np.linspace(xmin,xmax,100)
+    # y = np.linspace(ymin,ymax,100)
+    # X, Y = np.meshgrid(x, y)
+    # Z=calcGp(w2_2,w1_2,w02,X,Y)
+    # for i in range (100):
+    # 	for j in range (100):
+    # 		if(Z[i][j]<-12):
+    # 			Z[i][j]=-12
+    # print (Z)
+    # # #plt.figure()
+    # plt.contour(X, Y, Z,7,colors="black")
+    plt.xlim(xmin,xmax)
+    plt.ylim(ymin,ymax)
     plt.show()
 
     # x = np.linspace(-100, 100, 100)

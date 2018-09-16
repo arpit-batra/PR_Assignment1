@@ -351,21 +351,23 @@ def main():
                 plt.plot(i,j,color='#33d7ff',marker='s')
             elif g3==max(g1,g2,g3):
                 plt.plot(i,j,color='#75f740',marker='s')
-            j+=0.45
-        i+=0.45
+            j+=0.5
+        i+=0.5
     
-    X1=readDataSetTesting("Class1.txt")
-    for i in range(M-N):
+    X1=readDataSetTraining("Class1.txt")
+    for i in range(N):
         plt.plot(X1[i][0],X1[i][1],'ro')
 
-    X2=readDataSetTesting("Class2.txt")
-    for i in range(M-N):
+    X2=readDataSetTraining("Class2.txt")
+    for i in range(N):
         plt.plot(X2[i][0],X2[i][1],'bo')
 
-    X3=readDataSetTesting("Class3.txt")
-    for i in range(M-N):
+    X3=readDataSetTraining("Class3.txt")
+    for i in range(N):
         plt.plot(X3[i][0],X3[i][1],'go')
 
+    plt.xlim(xmin,xmax)
+    plt.ylim(ymin,ymax)
     plt.show()  
 
 
